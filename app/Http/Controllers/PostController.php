@@ -6,6 +6,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use App\Models\PostStatus;
 
 class PostController extends Controller
 {
@@ -38,7 +39,7 @@ class PostController extends Controller
             })
             ->get();
 
-        return view('post.index');
+        return view('post.index',  ['posts' => $posts]);
     }
 
     /**
@@ -64,6 +65,7 @@ class PostController extends Controller
 
         $post = new Post();
         $post->title = $request->title;
+        $post->content = $request->content;
         $post->status_id = $request->status_id;
         $post->user_id = Auth::id();
 

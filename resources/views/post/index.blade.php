@@ -10,7 +10,9 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="post-list">
-                        <a type="button" class="button">Create</a>
+                        <a type="button" class="button" href="{{ route('posts.create')}}">Create</a>
+                        
+                        <!-- <a href="{{ route('posts.create')}}"> Createe</a> -->
                         <ul>
                             @foreach($posts as $post)
                             <li>
@@ -23,6 +25,13 @@
                                             private
                                         </span>
                                     @endif
+                                    <a type="button" class="button" href="{{ route('posts.edit', $post->id)}}">Edit</a>
+                                    <form action="{{route ('posts.destroy', $post->id)}}" method="post">
+                                        @csrf 
+                                        @method('DELETE')
+                                        
+                                        <button>Delete</button>
+                                    </form>
                                 </h2>
 
                                 <h3>by {{ $post->user->name }}</h3>
