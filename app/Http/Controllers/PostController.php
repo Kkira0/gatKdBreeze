@@ -93,9 +93,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        Gate::authorize('update');
+        Gate::authorize('update', $post);
         $statuses = PostStatus::all();
-        return view('post.edit', ['post' => $post]);
+        return view('post.edit', ['post' => $post, 'statuses' => $statuses]);
     }
 
     /**
@@ -103,7 +103,7 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        Gate::authorize('update');
+        Gate::authorize('update', $post);
         $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
@@ -135,7 +135,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        Gate::authorize('delete');
+        Gate::authorize('delete', $post);
         $post->delete();
         if ($post->image) {
             \Storage::disk('public')->delete($post->image);

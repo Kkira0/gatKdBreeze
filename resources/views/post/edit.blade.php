@@ -10,7 +10,9 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="text-gray-900 dark:text-gray-100">
                     <div class="post-form">
-                        <form action="{{ route('posts.update', $post->id) }}" method="put" enctype="multipart/form-data">
+                        <form action="{{ route('posts.update', $post->id) }}" method="post" enctype="multipart/form-data">
+                            @csrf 
+                            @method('PUT')
                             <div class="mb-4">
                                 <label for="title">Title</label>
                                 <input type="text" name="title" id="title" class="@error('title') border-red-500 @enderror" value="{{ $post->title }}">
